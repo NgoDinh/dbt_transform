@@ -35,3 +35,5 @@ models:
     # Config indicated by + and applies to all files under models/example/
     example:
       +materialized: table
+      pre-hook: "insert into dbt.audit (model, state, time) values ('{{this.name}}', 'starting model deployment', current_timestamp)"
+      post-hook: "insert into dbt.audit (model, state, time) values ('{{this.name}}', 'done model deployment', current_timestamp)"
